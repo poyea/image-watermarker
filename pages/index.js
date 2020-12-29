@@ -146,8 +146,13 @@ const Home = () => {
           X
         </button>
         <button className={styles.button}>+</button>
-        <button className={styles.button}>A</button>
         <button className={styles.button} onClick={applyWaterMark}>
+          A
+        </button>
+        <button
+          className={styles.button}
+          /* Add download handler -> corresponding formats */
+        >
           D
         </button>
       </div>
