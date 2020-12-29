@@ -2,10 +2,38 @@ import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
+const WATERMARK = 'THIS IS A WATERMARK.';
+
 const Home = () => {
-  const [files, setFilesState] = useState([]);
-  const [isSticky, setSticky] = useState(false);
+  /*
+   * Sticky header hooks.
+   */
   const refStickyContainer = useRef(null);
+  const [isSticky, setSticky] = useState(false);
+  /*
+   * Files hooks for processing.
+   */
+  const [files, setFiles] = useState({});
+  const [filesArray, setFilesArray] = useState([]);
+
+  const [isDrawn, setDrawn] = useState(false);
+
+  const addTextToImage = (imagePath, text, id) => {
+    let toModifyCanvas = document.getElementById(id);
+    let context = toModifyCanvas.getContext('2d');
+    let img = new Image();
+    img.src = imagePath;
+    img.onload = () => {
+      toModifyCanvas.width = img.width;
+      toModifyCanvas.height = img.height;
+      context.drawImage(img, 0, 0);
+      context.lineWidth = 1;
+      context.fillStyle = 'rgb(0, 140, 255)';
+      context.lineStyle = '#ffffff';
+      context.font = '50px serif';
+      context.fillText(text, 50, 50);
+    };
+  };
 
   const handleScroll = () => {
     if (refStickyContainer.current) {
@@ -13,9 +41,21 @@ const Home = () => {
     }
   };
 
+  const applyWaterMark = () => {
+    filesArray.forEach((file, idx) => {
+      addTextToImage(URL.createObjectURL(file), WATERMARK, idx);
+    });
+    setDrawn(true);
+  };
+
+  const clearDesk = () => {
+    setFiles({});
+    setFilesArray([]);
+    setDrawn(false);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', () => handleScroll);
     };
@@ -29,12 +69,14 @@ const Home = () => {
     if (files.length === 0) {
       return;
     }
+    setFiles(files);
     let filesArray = [];
     for (let i = 0; i < files.length; ++i) {
       filesArray.push(files[i]);
     }
-    setFilesState(filesArray);
+    setFilesArray(filesArray);
   };
+
   return (
     <>
       <main className={styles.main}>
@@ -68,15 +110,20 @@ const Home = () => {
           />
         </p>
 
-        {files.length > 0 &&
-          files.map((file, idx) => (
-            <div id={idx}>
+        {filesArray.length > 0 &&
+          filesArray.map((file, idx) => (
+            <>
               <img
                 id={'img' + idx}
                 src={URL.createObjectURL(file)}
-                className={styles.img}
+                className={styles.img + (!isDrawn ? '' : ` ${styles.hidden}`)}
               ></img>
-            </div>
+              <canvas
+                id={idx}
+                key={idx}
+                className={styles.img + (!isDrawn ? ` ${styles.hidden}` : '')}
+              ></canvas>
+            </>
           ))}
       </main>
 
@@ -90,15 +137,19 @@ const Home = () => {
         </a>
         <hr></hr>
 
-        {files.length == 0 && (
+        {filesArray.length == 0 && (
           <img src="https://avatars3.githubusercontent.com/u/24757020"></img>
         )}
       </footer>
       <div className={styles.buttons}>
-        <button className={styles.button}>X</button>
+        <button className={styles.button} onClick={clearDesk}>
+          X
+        </button>
         <button className={styles.button}>+</button>
         <button className={styles.button}>A</button>
-        <button className={styles.button}>D</button>
+        <button className={styles.button} onClick={applyWaterMark}>
+          D
+        </button>
       </div>
     </>
   );

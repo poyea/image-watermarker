@@ -97,3 +97,9 @@
   font-size: 2rem;
   margin-top: 1rem;
 }
+
+.hidden {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
