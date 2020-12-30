@@ -1,5 +1,7 @@
 {
   "name": "image-watermark-machine",
+  "homepage": "https://github.com/poyea/image-watermark-machine",
+  "author": "John Law",
   "version": "0.1.0",
   "private": true,
   "scripts": {
