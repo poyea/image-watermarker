@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
+import Buttons from '../components/buttons';
 import styles from '../styles/Home.module.css';
 
 const WATERMARK = 'THIS IS A WATERMARK.';
@@ -140,26 +141,17 @@ const Home = () => {
           dev @poyea - {new Date().getFullYear()}
         </a>
         <hr></hr>
-
-        {filesArray.length == 0 && (
-          <img src="https://avatars3.githubusercontent.com/u/24757020"></img>
-        )}
-      </footer>
-      <div className={styles.buttons}>
-        <button className={styles.button} onClick={clearDesk}>
-          X
-        </button>
-        <button className={styles.button}>+</button>
-        <button className={styles.button} onClick={applyWaterMark}>
-          A
-        </button>
-        <button
-          className={styles.button}
-          /* Add download handler -> corresponding formats */
+        <a
+          href="https://github.com/poyea"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          D
-        </button>
-      </div>
+          {filesArray.length == 0 && (
+            <img src="https://avatars3.githubusercontent.com/u/24757020"></img>
+          )}
+        </a>
+      </footer>
+      <Buttons clearDesk={clearDesk} applyWaterMark={applyWaterMark} />
     </>
   );
 };
