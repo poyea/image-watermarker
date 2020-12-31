@@ -49,6 +49,11 @@ const Home = () => {
   };
 
   const clearDesk = () => {
+    for (let i = 0; i < filesArray.length; ++i) {
+      let toModifyCanvas = document.getElementById(i);
+      let context = toModifyCanvas.getContext('2d');
+      context.clearRect(0, 0, toModifyCanvas.width, toModifyCanvas.height);
+    }
     setFiles({});
     setFilesArray([]);
     setDrawn(false);
@@ -109,7 +114,6 @@ const Home = () => {
             onChange={(e) => handleUploadFiles(e.target.files)}
           />
         </p>
-
         {filesArray.length > 0 &&
           filesArray.map((file, idx) => (
             <>
