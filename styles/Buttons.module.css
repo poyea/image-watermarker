@@ -1,0 +1,21 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  border-width: 1rem;
+  bottom: 5%;
+  right: 5%;
+}
+
+.button {
+  display: block;
+  height: 45px;
+  width: 45px;
+  background-color: rgb(0, 140, 255);
+  color: #f1f1f1;
+  border-radius: 50%;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
