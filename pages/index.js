@@ -117,7 +117,7 @@ const Home = () => {
         </p>
         {filesArray.length > 0 &&
           filesArray.map((file, idx) => (
-            <>
+            <div key={idx}>
               <img
                 id={'img' + idx}
                 src={URL.createObjectURL(file)}
@@ -125,10 +125,9 @@ const Home = () => {
               ></img>
               <canvas
                 id={idx}
-                key={idx}
                 className={styles.img + (!isDrawn ? ` ${styles.hidden}` : '')}
               ></canvas>
-            </>
+            </div>
           ))}
       </main>
 
