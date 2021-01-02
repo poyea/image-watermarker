@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
 import Buttons from '../components/buttons';
+import Dragover from '../components/dragover';
 import styles from '../styles/Home.module.css';
 
 const WATERMARK = 'THIS IS A WATERMARK.';
@@ -16,6 +17,8 @@ const Home = () => {
    */
   const [files, setFiles] = useState({});
   const [filesArray, setFilesArray] = useState([]);
+
+  const [isDragFocus, setDragFocus] = useState(false);
 
   const [isDrawn, setDrawn] = useState(false);
 
@@ -60,8 +63,30 @@ const Home = () => {
     setDrawn(false);
   };
 
+  const handleDragEnter = () => {
+    setDragFocus(true);
+  };
+
+  const handleDragExit = () => {
+    setDragFocus(false);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    dragover.ondragover = dragover.ondragenter = (evt) => {
+      handleDragEnter();
+      evt.preventDefault();
+    };
+    dragover.ondrop = (evt) => {
+      handleDragExit();
+      input.files = evt.dataTransfer.files;
+      handleUploadFiles(evt.dataTransfer.files);
+      evt.preventDefault();
+    };
+    dragover.ondragexit = dragover.ondragend = dragover.ondragleave = (evt) => {
+      handleDragExit();
+      evt.preventDefault();
+    };
     return () => {
       window.removeEventListener('scroll', () => handleScroll);
     };
@@ -85,7 +110,8 @@ const Home = () => {
 
   return (
     <>
-      <main className={styles.main}>
+      <Dragover isDragFocus={isDragFocus} />
+      <main className={styles.main} id="main">
         <Head>
           <title>Image Watermarker</title>
           <link rel="icon" href="/favicon.ico" />
