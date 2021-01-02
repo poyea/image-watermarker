@@ -110,7 +110,6 @@ const Home = () => {
 
   return (
     <>
-      <Dragover isDragFocus={isDragFocus} />
       <main className={styles.main} id="main">
         <Head>
           <title>Image Watermarker</title>
@@ -176,6 +175,7 @@ const Home = () => {
           )}
         </a>
       </footer>
+      <Dragover isDragFocus={isDragFocus} />
       <Buttons clearDesk={clearDesk} applyWaterMark={applyWaterMark} />
     </>
   );
