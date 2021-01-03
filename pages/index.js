@@ -4,7 +4,9 @@ import Buttons from '../components/buttons';
 import Dragover from '../components/dragover';
 import styles from '../styles/Home.module.css';
 
-const WATERMARK = 'THIS IS A WATERMARK.';
+const WATERMARK = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.`.repeat(
+  100
+);
 
 const Home = () => {
   /*
@@ -34,8 +36,22 @@ const Home = () => {
       context.lineWidth = 1;
       context.fillStyle = 'rgb(0, 140, 255)';
       context.lineStyle = '#ffffff';
-      context.font = '50px serif';
-      context.fillText(text, 50, 50);
+      context.font = `${toModifyCanvas.height / 80}px serif`;
+      context.rotate(Math.PI / 4);
+      context.fillText(text, 0, 0);
+      /*
+       * Drawings
+       */
+      for (let mul = -1; mul <= 1; mul += 2) {
+        for (let xTran = 0, yTran = 0, count = 5; count >= 2; count--) {
+          context.save();
+          context.translate(xTran, yTran);
+          context.fillText(text, 0, 0);
+          context.restore();
+          xTran -= (toModifyCanvas.width / count) * mul;
+          yTran -= (toModifyCanvas.height / count) * mul;
+        }
+      }
     };
   };
 
@@ -61,6 +77,18 @@ const Home = () => {
     setFiles({});
     setFilesArray([]);
     setDrawn(false);
+  };
+
+  const downloadImages = () => {
+    for (let i = 0; i < filesArray.length; ++i) {
+      let link = document.createElement('a');
+      const filename = files[i]['name'];
+      const extension = filename.substring(filename.lastIndexOf('.') + 1);
+      const name = filename.substring(0, filename.lastIndexOf('.'));
+      link.download = `${name}_watermarked.${extension}`;
+      link.href = document.getElementById(i).toDataURL();
+      link.click();
+    }
   };
 
   const handleDragEnter = () => {
@@ -176,7 +204,11 @@ const Home = () => {
         </a>
       </footer>
       <Dragover isDragFocus={isDragFocus} />
-      <Buttons clearDesk={clearDesk} applyWaterMark={applyWaterMark} />
+      <Buttons
+        clearDesk={clearDesk}
+        applyWaterMark={applyWaterMark}
+        downloadImages={downloadImages}
+      />
     </>
   );
 };
