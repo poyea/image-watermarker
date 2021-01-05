@@ -43,12 +43,15 @@ const Home = () => {
        * Drawings
        */
       for (let mul = -1; mul <= 1; mul += 2) {
-        for (let xTran = 0, yTran = 0, count = 5; count >= 2; count -= 1) {
+        for (
+          let xTran = 0, yTran = 0, count = toModifyCanvas.width / 100;
+          count >= 2;
+          count -= 1
+        ) {
           context.save();
           context.translate(xTran, yTran);
           context.fillText(text, 0, 0);
           context.restore();
-          xTran -= (toModifyCanvas.width / count) * mul;
           yTran -= (toModifyCanvas.height / count) * mul;
         }
       }
