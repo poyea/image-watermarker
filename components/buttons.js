@@ -8,7 +8,7 @@ const Buttons = (props) => {
       <button className={styles.button} onClick={clearDesk}>
         X
       </button>
-      <button className={styles.button}>+</button>
+      {/* <button className={styles.button}>+</button> */}
       <button className={styles.button} onClick={applyWaterMark}>
         A
       </button>
