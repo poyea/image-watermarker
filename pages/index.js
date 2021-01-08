@@ -4,9 +4,11 @@ import Buttons from '../components/buttons';
 import Dragover from '../components/dragover';
 import styles from '../styles/Home.module.css';
 
-const WATERMARK = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.`.repeat(
+const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.`.repeat(
   100
 );
+const WATERMARK_FILLSTYLE = 'rgb(0, 140, 255)';
+const WATERMARK_LINESTYLE = '#ffffff';
 
 const Home = () => {
   /*
@@ -34,8 +36,8 @@ const Home = () => {
       toModifyCanvas.height = img.height;
       context.drawImage(img, 0, 0);
       context.lineWidth = 1;
-      context.fillStyle = 'rgb(0, 140, 255)';
-      context.lineStyle = '#ffffff';
+      context.fillStyle = WATERMARK_FILLSTYLE;
+      context.lineStyle = WATERMARK_LINESTYLE;
       context.font = `${toModifyCanvas.height / 80}px serif`;
       context.rotate(Math.PI / 4);
       context.fillText(text, 0, 0);
@@ -44,7 +46,7 @@ const Home = () => {
        */
       for (let mul = -1; mul <= 1; mul += 2) {
         for (
-          let xTran = 0, yTran = 0, count = toModifyCanvas.width / 100;
+          let xTran = 0, yTran = 0, count = toModifyCanvas.width / 200;
           count >= 2;
           count -= 1
         ) {
@@ -66,7 +68,7 @@ const Home = () => {
 
   const applyWaterMark = () => {
     filesArray.forEach((file, idx) => {
-      addTextToImage(URL.createObjectURL(file), WATERMARK, idx);
+      addTextToImage(URL.createObjectURL(file), WATERMARK_STRING, idx);
     });
     setDrawn(true);
   };
