@@ -1,22 +1,44 @@
 {
   "name": "image-watermark-machine",
-  "homepage": "https://github.com/poyea/image-watermark-machine",
+  "homepage": ".",
   "author": "John Law",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next build && next export",
-    "fmt": "prettier --write ."
-  },
   "dependencies": {
-    "next": "10.0.4",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
     "prettier": "2.2.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "fmt": "prettier --write ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

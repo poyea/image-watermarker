@@ -1,8 +1,7 @@
-import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
-import Buttons from '../components/buttons';
-import Dragover from '../components/dragover';
-import styles from '../styles/Home.module.css';
+import Buttons from './components/buttons';
+import Dragover from './components/dragover';
+import styles from './styles/Home.module.css';
 
 const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
   100
@@ -106,20 +105,25 @@ const Home = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    dragover.ondragover = dragover.ondragenter = (evt) => {
+    window.addEventListener('dragover', (evt) => {
       handleDragEnter();
       evt.preventDefault();
-    };
-    dragover.ondrop = (evt) => {
+    });
+    window.addEventListener('dragover', (evt) => {
+      handleDragEnter();
+      evt.preventDefault();
+    });
+    window.addEventListener('drop', (evt) => {
       handleDragExit();
-      input.files = evt.dataTransfer.files;
+      setFiles(evt.dataTransfer.files);
       handleUploadFiles(evt.dataTransfer.files);
       evt.preventDefault();
-    };
-    dragover.ondragexit = dragover.ondragend = dragover.ondragleave = (evt) => {
+    });
+    window.addEventListener('dragleave', (evt) => {
       handleDragExit();
       evt.preventDefault();
-    };
+    });
+    document.title = 'Image Watermarker';
     return () => {
       window.removeEventListener('scroll', () => handleScroll);
     };
@@ -133,7 +137,7 @@ const Home = () => {
     if (files.length === 0) {
       return;
     }
-    setFiles(files);
+    // setFiles(files);
     let filesArray = [];
     for (let i = 0; i < files.length; ++i) {
       filesArray.push(files[i]);
@@ -144,10 +148,6 @@ const Home = () => {
   return (
     <>
       <main className={styles.main} id="main">
-        <Head>
-          <title>Image Watermarker</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
         <div
           ref={refStickyContainer}
           className={`
@@ -168,6 +168,7 @@ const Home = () => {
           <input
             type="file"
             id="input"
+            files={filesArray}
             accept="image/*"
             multiple
             onChange={(e) => handleUploadFiles(e.target.files)}
@@ -178,6 +179,7 @@ const Home = () => {
             <div key={idx}>
               <img
                 id={'img' + idx}
+                alt={file['name']}
                 src={URL.createObjectURL(file)}
                 className={styles.img + (!isDrawn ? '' : ` ${styles.hidden}`)}
               ></img>
