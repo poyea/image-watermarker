@@ -205,8 +205,11 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {filesArray.length == 0 && (
-            <img src="https://avatars3.githubusercontent.com/u/24757020"></img>
+          {filesArray.length === 0 && (
+            <img
+              alt="@poyea"
+              src="https://avatars3.githubusercontent.com/u/24757020"
+            ></img>
           )}
         </a>
       </footer>
