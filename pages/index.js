@@ -4,7 +4,7 @@ import Buttons from '../components/buttons';
 import Dragover from '../components/dragover';
 import styles from '../styles/Home.module.css';
 
-const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.`.repeat(
+const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
   100
 );
 const WATERMARK_FILLSTYLE = 'rgb(0, 140, 255)';
