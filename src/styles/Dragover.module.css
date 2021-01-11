@@ -10,4 +10,5 @@
 
 .focus {
   background-color: darkorange;
+  opacity: 0.5;
 }
