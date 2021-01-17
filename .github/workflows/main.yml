@@ -2,6 +2,7 @@ name: Deploy to gh-pages
 on: [push]
 jobs:
   build-and-deploy:
+    if: endsWith(github.event.head_commit.message, '🚀')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
