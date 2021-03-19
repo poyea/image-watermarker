@@ -6,7 +6,7 @@ import styles from './styles/Home.module.css';
 const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
   100
 );
-const WATERMARK_FILLSTYLE = 'rgb(0, 140, 255)';
+const WATERMARK_FILLSTYLE = '#008cff';
 const WATERMARK_LINESTYLE = '#ffffff';
 
 const Home = () => {
@@ -25,6 +25,18 @@ const Home = () => {
 
   const [isDrawn, setDrawn] = useState(false);
 
+  const [localWaterMark, setLocalWaterMark] = useState(WATERMARK_STRING);
+
+  const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
+
+  const toRGB = (hex) => {
+    let p16 = parseInt(hex.substring(1), 16);
+    let r = (p16 >> 16) & 255;
+    let g = (p16 >> 8) & 255;
+    let b = p16 & 255;
+    return `rgb(${r},${g},${b},0.5)`;
+  };
+
   const addTextToImage = (imagePath, text, id) => {
     let toModifyCanvas = document.getElementById(id);
     let context = toModifyCanvas.getContext('2d');
@@ -35,10 +47,10 @@ const Home = () => {
       toModifyCanvas.height = img.height;
       context.drawImage(img, 0, 0);
       context.lineWidth = 1;
-      context.fillStyle = WATERMARK_FILLSTYLE;
+      context.fillStyle = toRGB(localColor);
       context.lineStyle = WATERMARK_LINESTYLE;
-      context.font = `${toModifyCanvas.height / 80}px serif`;
-      context.rotate(Math.PI / 4);
+      context.font = `${toModifyCanvas.height / 10}px serif`;
+      // context.rotate(Math.PI / 4);
       context.fillText(text, 0, 0);
       /*
        * Drawings
@@ -67,7 +79,7 @@ const Home = () => {
 
   const applyWaterMark = () => {
     filesArray.forEach((file, idx) => {
-      addTextToImage(URL.createObjectURL(file), WATERMARK_STRING, idx);
+      addTextToImage(URL.createObjectURL(file), localWaterMark, idx);
     });
     setDrawn(true);
   };
@@ -129,9 +141,9 @@ const Home = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
+  // useEffect(() => {
+  //   console.log(files);
+  // }, [files]);
 
   const handleUploadFiles = (files) => {
     if (files.length === 0) {
@@ -143,6 +155,14 @@ const Home = () => {
       filesArray.push(files[i]);
     }
     setFilesArray(filesArray);
+  };
+
+  const handleInput = (value) => {
+    setLocalWaterMark(value);
+  };
+
+  const handleColor = (value) => {
+    setLocalColor(value);
   };
 
   return (
@@ -173,6 +193,19 @@ const Home = () => {
             multiple
             onChange={(e) => handleUploadFiles(e.target.files)}
           />
+          <br />
+          <input
+            className={styles.input}
+            type="text"
+            value={localWaterMark}
+            onChange={(v) => handleInput(v.target.value)}
+          ></input>
+          <input
+            className={styles.color}
+            type="color"
+            value={localColor}
+            onChange={(v) => handleColor(v.target.value)}
+          ></input>
         </p>
         {filesArray.length > 0 &&
           filesArray.map((file, idx) => (
