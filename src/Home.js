@@ -96,7 +96,7 @@ const Home = () => {
   };
 
   const downloadImages = () => {
-    for (let i = 0; i < filesArray.length; ++i) {
+    for (let i = 0; i < filesArray.length && isDrawn; ++i) {
       let link = document.createElement('a');
       const filename = files[i]['name'];
       const extension = filename.substring(filename.lastIndexOf('.') + 1);
@@ -149,7 +149,7 @@ const Home = () => {
     if (files.length === 0) {
       return;
     }
-    // setFiles(files);
+    setFiles(files);
     let filesArray = [];
     for (let i = 0; i < files.length; ++i) {
       filesArray.push(files[i]);
