@@ -1,12 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Buttons from './components/Buttons';
+import Buttons from './components/Buttons.js';
 import Dragover from './components/Dragover';
 import styles from './styles/Home.module.css';
+
+const toRGB = (hex) => {
+  const p16 = parseInt(hex.substring(1), 16);
+  const r = (p16 >> 16) & 255;
+  const g = (p16 >> 8) & 255;
+  const b = p16 & 255;
+  return `rgb(${r},${g},${b},0.5)`;
+};
+
+const rrgb = () => {
+  const chars = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += chars[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
 
 const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
   100
 );
-const WATERMARK_FILLSTYLE = '#008cff';
+const WATERMARK_FILLSTYLE = rrgb() ?? '#008cff';
 const WATERMARK_LINESTYLE = '#ffffff';
 
 const Home = () => {
@@ -28,14 +45,6 @@ const Home = () => {
   const [localWaterMark, setLocalWaterMark] = useState(WATERMARK_STRING);
 
   const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
-
-  const toRGB = (hex) => {
-    const p16 = parseInt(hex.substring(1), 16);
-    const r = (p16 >> 16) & 255;
-    const g = (p16 >> 8) & 255;
-    const b = p16 & 255;
-    return `rgb(${r},${g},${b},0.5)`;
-  };
 
   const addTextToImage = (imagePath, text, id) => {
     let toModifyCanvas = document.getElementById(id);
@@ -246,7 +255,7 @@ const Home = () => {
           )}
         </a>
       </footer>
-      <Dragover isDragFocus={isDragFocus} />
+      {filesArray.length === 0 && <Dragover isDragFocus={isDragFocus} />}
       <Buttons
         clearDesk={clearDesk}
         applyWaterMark={applyWaterMark}
