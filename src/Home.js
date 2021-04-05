@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Buttons from './components/buttons';
-import Dragover from './components/dragover';
+import Buttons from './components/Buttons';
+import Dragover from './components/Dragover';
 import styles from './styles/Home.module.css';
 
 const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
@@ -30,10 +30,10 @@ const Home = () => {
   const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
 
   const toRGB = (hex) => {
-    let p16 = parseInt(hex.substring(1), 16);
-    let r = (p16 >> 16) & 255;
-    let g = (p16 >> 8) & 255;
-    let b = p16 & 255;
+    const p16 = parseInt(hex.substring(1), 16);
+    const r = (p16 >> 16) & 255;
+    const g = (p16 >> 8) & 255;
+    const b = p16 & 255;
     return `rgb(${r},${g},${b},0.5)`;
   };
 

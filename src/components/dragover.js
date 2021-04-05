@@ -8,7 +8,9 @@ const Dragover = (props) => {
     <div
       className={`${styles.zone} ${isDragFocus ? styles.focus : ''}`}
       id="dragover"
-    ></div>
+    >
+      Drop your file(s) here.
+    </div>
   );
 };
 
