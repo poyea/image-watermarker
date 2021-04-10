@@ -215,8 +215,8 @@ const Home = () => {
               ></canvas>
             </div>
           ))}
+        {filesArray.length === 0 && <Dragover isDragFocus={isDragFocus} />}
       </main>
-
       <footer className={styles.footer}>
         <a
           href="https://github.com/poyea"
@@ -239,7 +239,7 @@ const Home = () => {
           )}
         </a>
       </footer>
-      {filesArray.length === 0 && <Dragover isDragFocus={isDragFocus} />}
+
       <Buttons
         clearDesk={clearDesk}
         applyWaterMark={applyWaterMark}

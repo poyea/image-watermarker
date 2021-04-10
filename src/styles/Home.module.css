@@ -40,6 +40,12 @@
   font-size: 4rem;
 }
 
+@media screen and (max-width: 767px) {
+  .title {
+    font-size: 2rem;
+  }
+}
+
 .title,
 .description {
   text-align: center;

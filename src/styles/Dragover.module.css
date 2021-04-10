@@ -1,10 +1,9 @@
 .zone {
-  position: fixed;
-  margin-left: 25%;
-  width: 50vw;
-  height: 25%;
-  z-index: -1;
-  top: 70%;
+  /* position: fixed; */
+  /* margin-left: 25%; */
+  width: 40vw;
+  height: 100px;
+  /* top: 70%; */
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -12,6 +11,12 @@
   border-style: dashed;
   border-width: 2px;
   font-size: large;
+}
+
+@media screen and (max-width: 767px) {
+  .zone {
+    width: 55vw;
+  }
 }
 
 .focus {
