@@ -2,13 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Buttons from './components/Buttons';
 import Dragover from './components/Dragover';
 import styles from './styles/Home.module.css';
-import { rrgb, toRGB } from './utils/color.js';
-
-const WATERMARK_STRING = `Copyright © ${new Date().getFullYear()} J. All Rights Reserved.     `.repeat(
-  100
-);
-const WATERMARK_FILLSTYLE = rrgb() ?? '#008cff';
-const WATERMARK_LINESTYLE = '#ffffff';
+import { addTextToImage } from './core/drawTexts';
+import { WATERMARK_STRING, WATERMARK_FILLSTYLE } from './core/constants';
 
 const Home = () => {
   /*
@@ -30,40 +25,6 @@ const Home = () => {
 
   const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
 
-  const addTextToImage = (imagePath, text, id) => {
-    let toModifyCanvas = document.getElementById(id);
-    let context = toModifyCanvas.getContext('2d');
-    let img = new Image();
-    img.src = imagePath;
-    img.onload = () => {
-      toModifyCanvas.width = img.width;
-      toModifyCanvas.height = img.height;
-      context.drawImage(img, 0, 0);
-      context.lineWidth = 1;
-      context.fillStyle = toRGB(localColor);
-      context.lineStyle = WATERMARK_LINESTYLE;
-      context.font = `${toModifyCanvas.height / 10}px serif`;
-      // context.rotate(Math.PI / 4);
-      context.fillText(text, 0, 0);
-      /*
-       * Drawings
-       */
-      for (let mul = -1; mul <= 1; mul += 2) {
-        for (
-          let xTran = 0, yTran = 0, count = toModifyCanvas.width / 200;
-          count >= 2;
-          count -= 1
-        ) {
-          context.save();
-          context.translate(xTran, yTran);
-          context.fillText(text, 0, 0);
-          context.restore();
-          yTran -= (toModifyCanvas.height / count) * mul;
-        }
-      }
-    };
-  };
-
   const handleScroll = () => {
     if (refStickyContainer.current) {
       setSticky(refStickyContainer.current.getBoundingClientRect().top <= 0);
@@ -72,7 +33,12 @@ const Home = () => {
 
   const applyWaterMark = () => {
     filesArray.forEach((file, idx) => {
-      addTextToImage(URL.createObjectURL(file), localWaterMark, idx);
+      addTextToImage(
+        URL.createObjectURL(file),
+        localWaterMark,
+        localColor,
+        idx
+      );
     });
     setDrawn(true);
   };
@@ -134,10 +100,6 @@ const Home = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   console.log(files);
-  // }, [files]);
-
   const handleUploadFiles = (files) => {
     if (files.length === 0) {
       return;
@@ -157,6 +119,10 @@ const Home = () => {
   const handleColor = (value) => {
     setLocalColor(value);
   };
+
+  useEffect(() => {
+    setDrawn(false);
+  }, [filesArray]);
 
   return (
     <>
