@@ -1,12 +1,6 @@
 # Image Watermark Machine
 Apply watermarks to your images, from your browser!
 
-## Setup
-```
-npm install
-npm run start
-```
-
 ## Usage
 1. Upload images
 2. Press the `A` circle button to apply watermarks
