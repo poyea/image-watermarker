@@ -4,6 +4,7 @@ import Dragover from './components/Dragover';
 import styles from './styles/Home.module.css';
 import { addTextToImage } from './core/drawTexts';
 import { WATERMARK_STRING, WATERMARK_FILLSTYLE } from './core/constants';
+import useLocalStorage from 'use-local-storage';
 
 const Home = () => {
   /*
@@ -24,6 +25,13 @@ const Home = () => {
   const [localWaterMark, setLocalWaterMark] = useState(WATERMARK_STRING);
 
   const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
+
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const [theme, setTheme] = useLocalStorage(
+    'theme',
+    defaultDark ? 'dark' : 'light'
+  );
 
   const handleScroll = () => {
     if (refStickyContainer.current) {
@@ -112,6 +120,11 @@ const Home = () => {
     setFilesArray(filesArray);
   };
 
+  const darkenPage = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
   const handleInput = (value) => {
     setLocalWaterMark(value);
   };
@@ -126,7 +139,7 @@ const Home = () => {
 
   return (
     <>
-      <main className={styles.main} id="main">
+      <main className={styles.main} id="main" data-theme={theme}>
         <div
           ref={refStickyContainer}
           className={`
@@ -182,35 +195,25 @@ const Home = () => {
             </div>
           ))}
         {filesArray.length === 0 && <Dragover isDragFocus={isDragFocus} />}
+        <footer className={styles.footer}>
+          <a
+            href="https://github.com/poyea"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            dev @poyea - {new Date().getFullYear()}
+          </a>
+        </footer>
+        <Buttons
+          clearDesk={clearDesk}
+          applyWaterMark={applyWaterMark}
+          downloadImages={downloadImages}
+          darkenProps={{
+            darkenPage,
+            theme,
+          }}
+        />
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/poyea"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          dev @poyea - {new Date().getFullYear()}
-        </a>
-        <hr></hr>
-        <a
-          href="https://github.com/poyea"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {filesArray.length === 0 && (
-            <img
-              alt="@poyea"
-              src="https://avatars3.githubusercontent.com/u/24757020"
-            ></img>
-          )}
-        </a>
-      </footer>
-
-      <Buttons
-        clearDesk={clearDesk}
-        applyWaterMark={applyWaterMark}
-        downloadImages={downloadImages}
-      />
     </>
   );
 };

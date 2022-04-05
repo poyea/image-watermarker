@@ -1,3 +1,5 @@
+@import '../index.css';
+
 .buttons {
   display: flex;
   flex-direction: column;
@@ -18,4 +20,14 @@
   border-radius: 50%;
   font-size: 2rem;
   margin-top: 1rem;
+}
+
+.darkButton {
+  background-color: var(--background-flip);
+  font-size: 1rem;
+}
+
+.iconButton {
+  background-image: url(https://avatars3.githubusercontent.com/u/24757020)
+    no-repeat;
 }

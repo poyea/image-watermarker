@@ -1,9 +1,6 @@
 .zone {
-  /* position: fixed; */
-  /* margin-left: 25%; */
   width: 40vw;
   height: 100px;
-  /* top: 70%; */
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -11,6 +8,7 @@
   border-style: dashed;
   border-width: 2px;
   font-size: large;
+  color: var(--text-primary);
 }
 
 @media screen and (max-width: 767px) {
