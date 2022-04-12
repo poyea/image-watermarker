@@ -15,8 +15,10 @@ const addTextToImage = (imagePath, text, color, id) => {
     context.lineStyle = WATERMARK_LINESTYLE;
     context.font = `${toModifyCanvas.height / 10}px serif`;
     // context.rotate(Math.PI / 4);
-    context.textAligh = 'center';
-    context.fillText(text, 0, toModifyCanvas.height / 10);
+    let row = toModifyCanvas.height / 10;
+    for (let i = 0; i < 11; ++i) {
+      context.fillText(text, 0, row * i);
+    }
     /*
      * Drawings
      */

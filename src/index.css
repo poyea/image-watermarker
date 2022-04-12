@@ -22,16 +22,16 @@ code {
 }
 
 :root {
-  --background: white;
-  --background-flip: black;
+  --background: #f1f3f9;
+  --background-flip: #111213;
   --text-primary: black;
   --text-secondary: royalblue;
   --accent: purple;
 }
 
 [data-theme='dark'] {
-  --background: black;
-  --background-flip: white;
+  --background: #111213;
+  --background-flip: #f1f3f9;
   --text-primary: white;
   --text-secondary: grey;
   --accent: darkred;
