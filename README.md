@@ -1,4 +1,4 @@
-# Image Watermark Machine
+# Image Watermarker
 Apply watermarks to your images, from your browser!
 
 ## Usage
