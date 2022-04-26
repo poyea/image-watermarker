@@ -26,6 +26,8 @@ const Home = () => {
 
   const [localColor, setLocalColor] = useState(WATERMARK_FILLSTYLE);
 
+  const [rotateCnt, setRotateCnt] = useState(0);
+
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const [theme, setTheme] = useLocalStorage(
@@ -37,6 +39,20 @@ const Home = () => {
     if (refStickyContainer.current) {
       setSticky(refStickyContainer.current.getBoundingClientRect().top <= 0);
     }
+  };
+
+  const rotateWatermark = () => {
+    filesArray.forEach((file, idx) => {
+      addTextToImage(
+        URL.createObjectURL(file),
+        localWaterMark,
+        localColor,
+        idx,
+        rotateCnt
+      );
+    });
+    setRotateCnt(rotateCnt + 1);
+    setDrawn(true);
   };
 
   const applyWaterMark = () => {
@@ -153,7 +169,7 @@ const Home = () => {
             }
             `}
           >
-            Image Watermarker
+            👓 Image Watermarker 👓
           </h1>
         </div>
         <p className={styles.description}>
@@ -205,6 +221,7 @@ const Home = () => {
           </a>
         </footer>
         <Buttons
+          rotateWatermark={rotateWatermark}
           clearDesk={clearDesk}
           applyWaterMark={applyWaterMark}
           downloadImages={downloadImages}

@@ -2,7 +2,13 @@ import React from 'react';
 import styles from '../styles/Buttons.module.css';
 
 const Buttons = (props) => {
-  const { clearDesk, applyWaterMark, downloadImages, darkenProps } = props;
+  const {
+    rotateWatermark,
+    clearDesk,
+    applyWaterMark,
+    downloadImages,
+    darkenProps,
+  } = props;
   return (
     <div className={styles.buttons}>
       <button
@@ -18,6 +24,13 @@ const Buttons = (props) => {
         title="Apply watermarks."
       >
         A
+      </button>
+      <button
+        className={styles.button}
+        onClick={rotateWatermark}
+        title="Rotate watermarks."
+      >
+        R
       </button>
       <button
         className={styles.button}
