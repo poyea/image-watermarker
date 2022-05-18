@@ -201,11 +201,13 @@ const Home = () => {
               <img
                 id={'img' + idx}
                 alt={file['name']}
+                title={file['name']}
                 src={URL.createObjectURL(file)}
                 className={styles.img + (!isDrawn ? '' : ` ${styles.hidden}`)}
               ></img>
               <canvas
                 id={idx}
+                title={`Watermarked: ${file['name']}`}
                 className={styles.img + (!isDrawn ? ` ${styles.hidden}` : '')}
               ></canvas>
             </div>
