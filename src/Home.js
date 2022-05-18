@@ -5,6 +5,7 @@ import styles from './styles/Home.module.css';
 import { addTextToImage } from './core/drawTexts';
 import { WATERMARK_STRING, WATERMARK_FILLSTYLE } from './core/constants';
 import useLocalStorage from 'use-local-storage';
+import { saveAs } from 'file-saver';
 
 const Home = () => {
   /*
@@ -80,13 +81,12 @@ const Home = () => {
 
   const downloadImages = () => {
     for (let i = 0; i < filesArray.length && isDrawn; ++i) {
-      let link = document.createElement('a');
       const filename = files[i]['name'];
       const extension = filename.substring(filename.lastIndexOf('.') + 1);
       const name = filename.substring(0, filename.lastIndexOf('.'));
-      link.download = `${name}_watermarked.${extension}`;
-      link.href = document.getElementById(i).toDataURL();
-      link.click();
+      document.getElementById(i).toBlob((blob) => {
+        saveAs(blob, `${name}_watermarked.${extension}`);
+      });
     }
   };
 
@@ -206,6 +206,7 @@ const Home = () => {
               ></img>
               <canvas
                 id={idx}
+                alt={file['name']}
                 className={styles.img + (!isDrawn ? ` ${styles.hidden}` : '')}
               ></canvas>
             </div>
