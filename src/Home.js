@@ -206,7 +206,6 @@ const Home = () => {
               ></img>
               <canvas
                 id={idx}
-                alt={file['name']}
                 className={styles.img + (!isDrawn ? ` ${styles.hidden}` : '')}
               ></canvas>
             </div>
