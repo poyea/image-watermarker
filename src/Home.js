@@ -74,6 +74,7 @@ const Home = () => {
       let context = toModifyCanvas.getContext('2d');
       context.clearRect(0, 0, toModifyCanvas.width, toModifyCanvas.height);
     }
+    document.getElementById('input').value = '';
     setFiles({});
     setFilesArray([]);
     setDrawn(false);
@@ -212,16 +213,20 @@ const Home = () => {
               ></canvas>
             </div>
           ))}
-        {filesArray.length === 0 && <Dragover isDragFocus={isDragFocus} />}
-        <footer className={styles.footer}>
-          <a
-            href="https://github.com/poyea"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            dev @poyea - {new Date().getFullYear()}
-          </a>
-        </footer>
+        {filesArray.length === 0 && (
+          <>
+            <Dragover isDragFocus={isDragFocus} />
+            <footer className={styles.footer}>
+              <a
+                href="https://github.com/poyea"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                dev @poyea - {new Date().getFullYear()}
+              </a>
+            </footer>
+          </>
+        )}
         <Buttons
           rotateWatermark={rotateWatermark}
           clearDesk={clearDesk}
