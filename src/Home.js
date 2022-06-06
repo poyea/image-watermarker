@@ -38,7 +38,7 @@ const Home = () => {
 
   const handleScroll = () => {
     if (refStickyContainer.current) {
-      setSticky(refStickyContainer.current.getBoundingClientRect().top <= 0);
+      setSticky(refStickyContainer.current.getBoundingClientRect().top < -50);
     }
   };
 
@@ -173,7 +173,11 @@ const Home = () => {
             👓 Image Watermarker 👓
           </h1>
         </div>
-        <p className={styles.description}>
+        <p
+          className={`${
+            isSticky ? styles.stickydescription + ' ' + styles.description : ''
+          }`}
+        >
           <input
             type="file"
             id="input"

@@ -1,10 +1,10 @@
-html,
-body {
-  height: 100%;
+body,
+html {
+  min-height: 100vh;
 }
 
 #root {
-  height: inherit;
+  min-height: inherit;
 }
 
 body {

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: inherit;
   height: inherit;
   overflow: auto;
   background-color: var(--background);
@@ -60,17 +61,21 @@
   margin-right: auto;
 }
 
+.stickydescription {
+  margin-top: 150px;
+}
+
 .wrapper {
   padding: 0px 0px 5px;
   background: rgb(0, 140, 255);
   color: var(--text-primary);
   width: 100%;
   border-radius: 0.5cm;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .sticky {
-  font-size: 2rem;
+  font-size: 1.25rem;
   position: fixed;
   top: 0;
 }
