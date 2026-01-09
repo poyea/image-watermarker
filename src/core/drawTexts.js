@@ -1,7 +1,7 @@
 import { toRGB } from '../utils/color';
 import { WATERMARK_LINESTYLE } from './constants';
 
-const addTextToImage = (imagePath, text, color, id, rotateCnt = 0) => {
+const addTextToImage = (imagePath, text, color, id, rotateCnt = 0, translateX = 0) => {
   let toModifyCanvas = document.getElementById(id);
   let context = toModifyCanvas.getContext('2d');
   let img = new Image();
@@ -14,6 +14,7 @@ const addTextToImage = (imagePath, text, color, id, rotateCnt = 0) => {
     context.fillStyle = toRGB(color);
     context.lineStyle = WATERMARK_LINESTYLE;
     context.font = `${toModifyCanvas.height / 10}px serif`;
+    context.translate(translateX, 0);
     for (let i = 0; i < rotateCnt; ++i) {
       context.rotate(Math.PI / 12);
     }

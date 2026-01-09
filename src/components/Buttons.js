@@ -4,6 +4,8 @@ import styles from '../styles/Buttons.module.css';
 const Buttons = (props) => {
   const {
     rotateWatermark,
+    moveLeft,
+    moveRight,
     clearDesk,
     applyWaterMark,
     downloadImages,
@@ -27,10 +29,24 @@ const Buttons = (props) => {
       </button>
       <button
         className={styles.button}
+        onClick={moveLeft}
+        title="Move watermarks left."
+      >
+        &lt;
+      </button>
+      <button
+        className={styles.button}
         onClick={rotateWatermark}
         title="Rotate watermarks."
       >
         R
+      </button>
+      <button
+        className={styles.button}
+        onClick={moveRight}
+        title="Move watermarks right."
+      >
+        &gt;
       </button>
       <button
         className={styles.button}

@@ -29,6 +29,8 @@ const Home = () => {
 
   const [rotateCnt, setRotateCnt] = useState(0);
 
+  const [translateX, setTranslateX] = useState(0);
+
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const [theme, setTheme] = useLocalStorage(
@@ -49,10 +51,41 @@ const Home = () => {
         localWaterMark,
         localColor,
         idx,
-        rotateCnt
+        rotateCnt,
+        translateX
       );
     });
     setRotateCnt(rotateCnt + 1);
+    setDrawn(true);
+  };
+
+  const moveLeft = () => {
+    filesArray.forEach((file, idx) => {
+      addTextToImage(
+        URL.createObjectURL(file),
+        localWaterMark,
+        localColor,
+        idx,
+        rotateCnt,
+        translateX - 50
+      );
+    });
+    setTranslateX(translateX - 50);
+    setDrawn(true);
+  };
+
+  const moveRight = () => {
+    filesArray.forEach((file, idx) => {
+      addTextToImage(
+        URL.createObjectURL(file),
+        localWaterMark,
+        localColor,
+        idx,
+        rotateCnt,
+        translateX + 50
+      );
+    });
+    setTranslateX(translateX + 50);
     setDrawn(true);
   };
 
@@ -62,7 +95,9 @@ const Home = () => {
         URL.createObjectURL(file),
         localWaterMark,
         localColor,
-        idx
+        idx,
+        rotateCnt,
+        translateX
       );
     });
     setDrawn(true);
@@ -233,6 +268,8 @@ const Home = () => {
         )}
         <Buttons
           rotateWatermark={rotateWatermark}
+          moveLeft={moveLeft}
+          moveRight={moveRight}
           clearDesk={clearDesk}
           applyWaterMark={applyWaterMark}
           downloadImages={downloadImages}
